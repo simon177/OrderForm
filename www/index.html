@@ -1,63 +1,66 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<script src="js/pgb.js"></script>
-		<script src="cordova.js"></script>
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
-		<script src="js/jquery-2.1.4.min.js"></script>
-		<script src="js/jquery.mobile-1.4.5.min.js"></script>
-	</head>
-	<body onload="init()">
-			
-		<div data-role="page" id="pageone">
-		  <div data-role="header">
-			<h1>Positioning Icons</h1>
-		  </div>
 
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <script src="js/pgb.js"></script>
+    <script src="cordova.js"></script>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
 
-		<form method="post" action="/action_page_post.php">
-			<p>Fill in all fields on the form:</p>
-			
-			<label for="fto">League</label>
-				<input type="text" name="fto" id="fto" data-clear-btn="true">
-			
-			<label for="fdate">Date: </label>
-				<input type="date-time" name="fdate" id="fdate" data-clear-btn="true">
-			
-				
-			<a href="#interesetpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" id="inter">Interests</a>
-		</form>
-		
-			<div data-role="footer">
-				<h1>Footer Text</h1>
-			</div>
-		</div>
-		
-		<div data-role="page" id="interesetpage">
-		  <div data-role="header">
-			<a href="#pageone" data-icon="back" style="height: 40%;"></a>
-			<h1>Business Card</h1>
-		  </div>
-		  <div data-role="main" class="ui-content" id="result">
-		  </div>
-		  <div data-role="footer" data-position="fixed">
-			<h1>Szymon Banowski</h1>
-		  </div> 
-		</div>
-		</body>
-		<script>$("#inter").on('click', function() {
-  var value1 = $("#fto").val();
-  var value2 = $("#fdate").val();
-	  var urlAPI = 'https://apifootball.com/api/?action=get_events&from='+value2+'&to='+value2+'&league_id='+value1+"&APIkey=fe753bc888bb6a75490621597fc3f4f93184ef9a2ffb5cffab3be87813b7023f";
-  $.ajax({
-    url: urlAPI, 
-	dataType: 'JSON',
-    type: 'GET',             
+<body onload="init()">
+    <div data-role="page" id="pageone">
+        <div data-role="header">
+            <h1>Positioning Icons</h1>
+        </div>
+        <form method="post" action="/action_page_post.php">
+            <p>Fill in all fields on the form:</p>
+            <label for="fto">League</label>
+            <input type="text" name="fto" id="fto" data-clear-btn="true">
+            <label for="fdate">Date: </label>
+            <input type="date-time" name="fdate" id="fdate" data-clear-btn="true">
+            <a href="#interesetpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" id="inter">Interests</a>
+        </form>
+        <div data-role="footer">
+            <h1>Footer Text</h1>
+        </div>
+    </div>
+    <div data-role="page" id="interesetpage">
+        <div data-role="header">
+            <a href="#pageone" data-icon="back" style="height: 40%;"></a>
+            <h1>Business Card</h1>
+        </div>
+        <div data-role="main" class="ui-content" id="result">
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>Szymon Banowski</h1>
+        </div>
+    </div>
+</body>
+<script>
+$("#inter").on('click', function() {
+    var urlAPI = 'data.php';
+    var date = $('#fdate').val();
+    var league = $('#fto').val();
 
+    console.log(date);
+    console.log(league);
+    $.ajax({
+        url: urlAPI,
+        type: 'POST',
+        data: {
+            'date': date,
+            'league': league,
+        },
+        success: function(result) {
+            console.log(result);
+            result = JSON.parse(result);
+            $('#result').html(result);
+        }
+    });
+});
+</script>
 
-    success: function(result){
-        $("#result").html("Nazwa kraju: " + result.match_id + " Kontynent: " + result.league_id);
-    }});
-});</script>
 </html>
