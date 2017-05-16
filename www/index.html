@@ -15,33 +15,49 @@
 			<h1>Positioning Icons</h1>
 		  </div>
 
-		  <div data-role="main" class="ui-content">
-			<p>Choose one option: </p>
-			<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left">Reject</a>
-			<a href="#" class="ui-btn ui-icon-arrow-r ui-btn-icon-left">Accept</a>
-		  </div>
 
 		<form method="post" action="/action_page_post.php">
 			<p>Fill in all fields on the form:</p>
 			
-			<label for="fto">To: </label>
+			<label for="fto">League</label>
 				<input type="text" name="fto" id="fto" data-clear-btn="true">
 			
 			<label for="fdate">Date: </label>
 				<input type="date-time" name="fdate" id="fdate" data-clear-btn="true">
 			
-			<label for="fproduct">Product: </label>
-				<input type="list" name="fproduct" id="fproduct" data-clear-btn="true">
 				
-			<label for="fquantity">Product: </label>
-				<input type="text" name="fquantity" id="fquantity" data-clear-btn="true">
+			<a href="#interesetpage" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" id="inter">Interests</a>
 		</form>
 		
 			<div data-role="footer">
 				<h1>Footer Text</h1>
 			</div>
-		</div> 
-			
+		</div>
 		
-	</body>
+		<div data-role="page" id="interesetpage">
+		  <div data-role="header">
+			<a href="#pageone" data-icon="back" style="height: 40%;"></a>
+			<h1>Business Card</h1>
+		  </div>
+		  <div data-role="main" class="ui-content" id="result">
+		  </div>
+		  <div data-role="footer" data-position="fixed">
+			<h1>Szymon Banowski</h1>
+		  </div> 
+		</div>
+		</body>
+		<script>$("#inter").on('click', function() {
+  var value1 = $("#fto").val();
+  var value2 = $("#fdate").val();
+	  var urlAPI = 'https://apifootball.com/api/?action=get_events&from='+value2+'&to='+value2+'&league_id='+value1+"&APIkey=fe753bc888bb6a75490621597fc3f4f93184ef9a2ffb5cffab3be87813b7023f";
+  $.ajax({
+    url: urlAPI, 
+	dataType: 'JSON',
+    type: 'GET',             
+
+
+    success: function(result){
+        $("#result").html("Nazwa kraju: " + result.match_id + " Kontynent: " + result.league_id);
+    }});
+});</script>
 </html>
