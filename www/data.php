@@ -1,11 +1,10 @@
 <?php
 $APIkey='fe753bc888bb6a75490621597fc3f4f93184ef9a2ffb5cffab3be87813b7023f';
-$country_id = 169;
-$date = $_POST['date'];
-$league = $_POST['league'];
+
+$link = $_POST['link'];
 
 $curl_options = array(
-	CURLOPT_URL => "https://apifootball.com/api/?action=get_events&from=".$date."&to=".$date."&league_id=".$league."&APIkey=$APIkey",
+	CURLOPT_URL => $link.$APIkey,
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_HEADER => false,
 	CURLOPT_TIMEOUT => 30,

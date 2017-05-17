@@ -3,11 +3,11 @@
 
 <head>
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline';img-src *; style-src * 'self' 'unsafe-inline'; media-src *" />
-    <script src="js/pgb.js"></script>
     <script src="cordova.js"></script>
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/pgb.js"></script>
 </head>
 
 <body onload="init()">
@@ -40,27 +40,7 @@
     </div>
 </body>
 <script>
-$("#inter").on('click', function() {
-    var urlAPI = 'http://wizard.uek.krakow.pl/~s179683/Web/order/www/data.php';
-    var date = $('#fdate').val();
-    var league = $('#fto').val();
-
-    console.log(date);
-    console.log(league);
-    $.ajax({
-        url: urlAPI,
-        type: 'POST',
-        data: {
-            'date': date,
-            'league': league,
-        },
-        success: function(result) {
-            console.log(result);
-            result = JSON.parse(result);
-            $('#result').html(result);
-        }
-    });
-});
+$("#inter").on('click', parseLeagues());
 </script>
 
 </html>

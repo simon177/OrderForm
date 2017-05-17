@@ -7,13 +7,34 @@ function onDeviceReady() {
 	Info();
 }
 
-function Info() {
-
-	info =  'The graphical user interface (GUI), is a type of user interface that allows users to interact with electronic
-devices through graphical icons and visual indicators such as secondary notation, instead of text-based user
-interfaces, typed command labels or text navigation. GUIs were introduced in reaction to the perceived steep
-learning curve of command-line interfaces (CLIs), which require commands to be typed on a computer
-keyboard.';
-
-	document.getElementById("deviceDetails").innerHTML = info;	
+function parseLeagues(){
+    var urlAPI = 'http://wizard.uek.krakow.pl/~s179683/Web/order2/www/data.php';
+    var date = $('#fdate').val();
+    var league = $('#fto').val();
+	var link = 'https://apifootball.com/api/?action=get_events&from='+date+'&to='+date+'&league_id='+league;
+        $.ajax({
+	url: urlAPI,
+        type: 'POST',
+        data: {
+            'link': link,
+        },
+		//zamiana odpowiedzi json na string
+        success: function (result) {
+			var returnedData = JSON.parse(result);
+			var formatedData = JSON.parse(returnedData);
+			var html = '';
+			if(formatedData.error == 404){
+			html='brak wydarzen w danym dniu';
+			$('#result').html(html);
+			}
+			else{
+			$.each(formatedData, function(key, value){
+            html += '<div class='+value.match_id+'>';
+            html += '<label>'+value.match_hometeam_name+'-'+value.match_awayteam_name+'</label>';
+            html += '</div>';
+        });
+			}
+			$('#result').html(html);
+        }
+    });
 }
